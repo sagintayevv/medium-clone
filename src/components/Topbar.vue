@@ -46,6 +46,9 @@
               {{ currentUser.username }}
             </router-link>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" @click="logout()">Log out</a>
+          </li>
         </template>
 
         <template v-if="isAnonymus">
@@ -84,6 +87,12 @@ export default {
     },
     isAnonymus() {
       return this.$store.getters.isAnonymus;
+    },
+  },
+  methods: {
+    logout() {
+      localStorage.removeItem("accessToken");
+      this.$router.push("/login");
     },
   },
 };

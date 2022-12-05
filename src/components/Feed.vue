@@ -34,18 +34,25 @@
           :to="{ name: 'article', params: { slug: article.slug } }"
           class="preview-link"
         >
-          <h1>{{ article.title }}</h1>
-          <p>{{ article.description }}</p>
+          <h1>{{ article.description }}</h1>
+          <p>{{ article.title }}</p>
           <span>Read more</span>
           TAG LIST
         </router-link>
       </div>
-      PAG
+      <mcv-pagination
+        :total="feed.articlesCount"
+        :limit="limit"
+        :currentPage="currentPage"
+        :url="baseUrl"
+      />
     </div>
   </div>
 </template>
   
 <script>
+import McvPagination from "@/components/Pagination";
+import { stringify, parseUrl } from "query-string";
 export default {
   name: "McvFeed",
   props: {
@@ -54,6 +61,14 @@ export default {
       required: true,
     },
   },
+  data() {
+    return {
+      limit: 10,
+    };
+  },
+  components: {
+    McvPagination,
+  },
   computed: {
     isLoading() {
       return this.$store.state.feed.isLoading;
@@ -61,10 +76,36 @@ export default {
     feed() {
       return this.$store.state.feed.data;
     },
+    currentPage() {
+      return Number(this.$route.query.page) || 1;
+    },
+    baseUrl() {
+      return this.$route.path;
+    },
+    offset() {
+      return this.currentPage * 10 - 10;
+    },
   },
-  created() {
-    console.log(this.$store.state.feed.data);
-    this.$store.dispatch("getFeed", { apiUrl: this.apiUrl });
+  methods: {
+    fetchFeed() {
+      const parsedUrl = parseUrl(this.apiUrl);
+      const stringifiedParams = stringify({
+        limit: 10,
+        offset: this.offset,
+        ...parsedUrl.query,
+      });
+      const apiUrlWithParams = `${parsedUrl.url}?${stringifiedParams}`;
+      console.log(apiUrlWithParams);
+      this.$store.dispatch("getFeed", { apiUrl: apiUrlWithParams });
+    },
+  },
+  watch: {
+    currentPage() {
+      this.fetchFeed();
+    },
+  },
+  mounted() {
+    this.fetchFeed();
   },
 };
 </script>

@@ -44,7 +44,7 @@
   </div>
 </template>
   
-  <script>
+<script>
 import McvValidationErrors from "@/components/ValidationErrors";
 
 export default {
