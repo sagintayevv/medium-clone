@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="isLoading">...Loading</div>
+    <mcv-loading v-if="isLoading" />
     <div v-if="feed">
       <div
         class="article-preview"
@@ -37,7 +37,15 @@
           <h1>{{ article.description }}</h1>
           <p>{{ article.title }}</p>
           <span>Read more</span>
-          TAG LIST
+          <ul class="tag-list">
+            <li
+              v-for="(tag, index) in article.tagList"
+              :key="index"
+              class="tag-default tag-pill tag-outline"
+            >
+              {{ tag }}
+            </li>
+          </ul>
         </router-link>
       </div>
       <mcv-pagination
@@ -52,6 +60,7 @@
   
 <script>
 import McvPagination from "@/components/Pagination";
+import McvLoading from "@/components/Loading";
 import { stringify, parseUrl } from "query-string";
 export default {
   name: "McvFeed",
@@ -68,6 +77,7 @@ export default {
   },
   components: {
     McvPagination,
+    McvLoading,
   },
   computed: {
     isLoading() {

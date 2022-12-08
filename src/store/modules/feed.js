@@ -3,7 +3,7 @@ import feedApi from "@/api/feed"
 const state = {
     data: null,
     isLoading: false,
-    error: null
+    error: null,
 }
 
 const getters = {
@@ -32,6 +32,7 @@ const mutations = {
     [mutationsTypes.getFeedFailure](state){
         state.isLoading = true
     },
+    
 }
 
 const actions = {
@@ -41,14 +42,13 @@ const actions = {
         feedApi.getFeed(apiUrl)
         .then(response =>{
             context.commit(mutationsTypes.getFeedSuccess, response.data)
-            console.log(mutationsTypes.getFeedSuccess, response.data)
             resolve(response.data)
         })
         .catch(()=> {
             context.commit(mutationsTypes.getFeedFailure)
         })
         })
-    }
+    },
 }
 
 export default{

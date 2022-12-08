@@ -46,9 +46,6 @@
               {{ currentUser.username }}
             </router-link>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" @click="logout()">Log out</a>
-          </li>
         </template>
 
         <template v-if="isAnonymus">
