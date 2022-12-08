@@ -1,6 +1,7 @@
 <template>
   <div>
     <mcv-loading v-if="isLoading" />
+    <mcv-error-message :message="'foo'" />
     <div v-if="feed">
       <div
         class="article-preview"
@@ -61,6 +62,7 @@
 <script>
 import McvPagination from "@/components/Pagination";
 import McvLoading from "@/components/Loading";
+import McvErrorMessage from "@/components/ErrorMessage";
 import { stringify, parseUrl } from "query-string";
 export default {
   name: "McvFeed",
@@ -78,6 +80,7 @@ export default {
   components: {
     McvPagination,
     McvLoading,
+    McvErrorMessage,
   },
   computed: {
     isLoading() {

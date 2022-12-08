@@ -2,6 +2,7 @@
   <div class="sidebar">
     <p>Popular Tags</p>
     <mcv-loading v-if="isLoading" />
+    <mcv-error-message :message="'foo'" />
     <div class="tag-list">
       <router-link
         v-for="tag in popularTags"
@@ -17,10 +18,13 @@
 
 <script>
 import McvLoading from "@/components/Loading";
+import McvErrorMessage from "@/components/ErrorMessage";
+
 export default {
   name: "McvPopularTags",
   components: {
     McvLoading,
+    McvErrorMessage,
   },
   computed: {
     popularTags() {
@@ -28,6 +32,9 @@ export default {
     },
     isLoading() {
       return this.$store.state.popularTags.isLoading;
+    },
+    errorMessage() {
+      return this.$store.state.popularTags.error;
     },
   },
   mounted() {
