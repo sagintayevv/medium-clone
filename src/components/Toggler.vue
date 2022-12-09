@@ -3,16 +3,16 @@
     <ul class="nav nav-pills outline-active">
       <li class="nav-item" v-if="isLoggedIn">
         <router-link
-          :to="{ name: 'yourFeed' }"
+          :to="{ name: 'yourfeed' }"
           class="nav-link"
-          :class="{ active: routeName == 'yourFeed' }"
+          :class="{ active: routeName == 'yourfeed' }"
         >
           YourFeed
         </router-link>
       </li>
       <li class="nav-item">
         <router-link
-          :to="{ name: 'GlobalFeed' }"
+          :to="{ name: 'globalfeed' }"
           class="nav-link"
           :class="{ active: routeName == 'globalfeed' }"
         >
@@ -21,7 +21,7 @@
       </li>
       <li class="nav-item" v-if="tagName">
         <router-link
-          :to="{ name: 'yourFeed' }"
+          :to="{ name: 'tag' }"
           class="nav-link"
           :class="{ active: routeName == 'tag' }"
         >
