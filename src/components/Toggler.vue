@@ -36,7 +36,6 @@
 <script>
 import YourFeed from "../views/YourFeed";
 export default {
-  components: { YourFeed },
   name: "McvFeedToggler",
   props: {
     tagName: {
@@ -44,6 +43,7 @@ export default {
       required: true,
     },
   },
+  components: { YourFeed },
   computed: {
     isLoggedIn() {
       return this.$store.getters.isLoggedIn;
