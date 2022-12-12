@@ -23,14 +23,17 @@
             </router-link>
             <span class="date">{{ article.createdAt }}</span>
           </div>
-          <span>
+          <span v-if="isAuthor">
             <router-link
               class="btn btn-outline-secondary btn-sm"
               :to="{ name: 'editArticle', params: { slug: article.slug } }"
             >
               <i class="ion-edit"> Edit Article </i>
             </router-link>
-            <button class="btn btn-outline-danger btn-sm">
+            <button
+              class="btn btn-outline-danger btn-sm"
+              @click="deleteArticle"
+            >
               <i class="ion-trash-a">Delete Article</i>
             </button>
           </span>
@@ -45,6 +48,7 @@
           <div>
             <p>{{ article.body }}</p>
           </div>
+          <mcv-tag-list :tags="article.tagList" />
         </div>
       </div>
     </div>
@@ -54,6 +58,7 @@
 <script>
 import McvLoading from "@/components/Loading";
 import McvErrorMessage from "@/components/ErrorMessage";
+import McvTagList from "@/components/TagList";
 
 export default {
   name: "McvArticle",
@@ -67,10 +72,31 @@ export default {
     error() {
       return this.$store.state.article.error;
     },
+    currentUser() {
+      return this.$store.getters.currentUser;
+    },
+    isAuthor() {
+      if (!this.currentUser || !this.article) {
+        return false;
+      }
+      return this.currentUser.username === this.article.author.username;
+    },
   },
   components: {
     McvLoading,
     McvErrorMessage,
+    McvTagList,
+  },
+  methods: {
+    deleteArticle() {
+      this.$store
+        .dispatch("deleteArticle", {
+          slug: this.$route.params.slug,
+        })
+        .then(() => {
+          this.$router.push({});
+        });
+    },
   },
   mounted() {
     this.$store.dispatch("getArticle", { slug: this.$route.params.slug });

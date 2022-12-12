@@ -108,7 +108,6 @@ export default {
         ...parsedUrl.query,
       });
       const apiUrlWithParams = `${parsedUrl.url}?${stringifiedParams}`;
-      console.log(apiUrlWithParams);
       this.$store.dispatch("getFeed", { apiUrl: apiUrlWithParams });
     },
   },
