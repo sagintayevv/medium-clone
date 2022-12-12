@@ -20,7 +20,7 @@ export default {
         title: "",
         description: "",
         body: "",
-        tsgList: [],
+        tagList: [],
       },
     };
   },
@@ -33,7 +33,7 @@ export default {
     },
   },
   methods: {
-    onSubmit() {
+    onSubmit(articleInput) {
       this.$store
         .dispatch("createArticle", { articleInput })
         .then((article) => {
