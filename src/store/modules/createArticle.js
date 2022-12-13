@@ -14,6 +14,7 @@ export const mutationsTypes = {
 const mutations = {
     [mutationsTypes.createArticleStart](state){
         state.isSubmitting = true
+        state.validationErrors = null
     },
     [mutationsTypes.createArticleSuccess](state){
         state.isSubmitting = false

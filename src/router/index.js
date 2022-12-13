@@ -7,6 +7,8 @@ import Register from '../views/Register'
 import Login from '../views/Login'
 import Article from '../views/Article'
 import CreateArticle from '../views/CreateArticle'
+import EditArticle from '../views/EditArticle'
+
 
 Vue.use(VueRouter)
 
@@ -47,9 +49,9 @@ const routes = [
     component: Article
   },
   {
-    path: '/articles/:slug',
+    path: '/articles/:slug/edit',
     name: 'editArticle',
-    component: Login
+    component: EditArticle
   },
   {
     path: '/settings',
