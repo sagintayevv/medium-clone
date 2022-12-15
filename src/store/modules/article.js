@@ -53,8 +53,8 @@ const actions = {
     deleteArticle(context, {slug}){
         return new Promise(resolve => {
             context.commit(mutationsTypes.deleteArticleStart, slug)
-            articleApi.getArticle(slug)
-            .then(() =>{
+            articleApi.deleteArticle(slug)
+            .then(() => {
                 context.commit(mutationsTypes.deleteArticleSuccess)
                 resolve()
             })

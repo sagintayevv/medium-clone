@@ -41,6 +41,7 @@ export default {
     tagName: {
       type: String,
       required: true,
+      default: "",
     },
   },
   components: { YourFeed },
