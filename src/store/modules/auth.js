@@ -21,6 +21,13 @@ const getters = {
     }
 }
 
+export const mutationsTypes = {
+    updateCurrentUserStart: "[update] Update currentuser Start",
+    updateCurrentUserSuccess: "[update] Update currentuser Success",
+    updateCurrentUserFailure: "[update] Update currentuser Failure"
+}
+
+
 const mutations = {
     registerStart(state){
         state.isSubmitting = true
@@ -59,6 +66,15 @@ const mutations = {
         state.isLoading = false,
         state.isLoggedIn = false,
         state.currentUser = null
+    },
+    [mutationsTypes.updateCurrentUserStart](){},
+    [mutationsTypes.updateCurrentUserSuccess](state,payload){
+        state.currentUser = payload
+    },
+    [mutationsTypes.updateCurrentUserfailure](){},
+    logout(state){
+        state.currentUser = null
+        state.isLoggedIn = false
     }
 }
 
@@ -107,6 +123,28 @@ const actions = {
                 context.commit('getCurrentUserFailure', result.response.data.errors)
             })
         })
+    },
+
+    updateCurrentUser(context,{currentUserInput}){
+        return new Promise ( ()=> {
+            context.commit(mutationsTypes.updateCurrentUserStart)
+            authApi.updateCurrentUser(currentUserInput)
+            .then(user => {
+                context.commit(mutationsTypes.updateCurrentUserSuccess,user)
+                resolve(user)
+            })
+            .catch((result) => {
+                context.commit(mutationsTypes.updateCurrentUserFailure,result.response.data.errors)
+            })
+        })
+    },
+
+    logout(context){
+        return new Promise( resolve => {
+            localStorage.setItem('accessToken','')
+            context.commit("logout")
+            resolve()
+        })
     }
 }
 
@@ -114,5 +152,6 @@ export default {
     state,
     mutations,
     actions,
-    getters
+    getters,
+    
 }
