@@ -9,6 +9,8 @@ import Article from '../views/Article'
 import CreateArticle from '../views/CreateArticle'
 import EditArticle from '../views/EditArticle'
 import Settings from '../views/Settings'
+import UserProfile from '../views/UserProfile'
+
 
 
 
@@ -63,12 +65,12 @@ const routes = [
   {
     path: '/profiles/:slug',
     name: 'userProfile',
-    component: Login
+    component: UserProfile
   },
   {
     path: '/profiles/:slug/favorites',
     name: 'userProfileFavorites',
-    component: Login
+    component: UserProfile
   }
 ]
 
