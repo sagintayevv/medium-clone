@@ -22,16 +22,6 @@ export default {
     McvArticleForm,
     McvLoading,
   },
-  //   data() {
-  //     return {
-  //       initialValues: {
-  //         title: "",
-  //         description: "",
-  //         body: "",
-  //         tagList: [],
-  //       },
-  //     };
-  //   },
   computed: {
     isSubmitting() {
       return this.$store.state.editArticle.isSubmitting;
